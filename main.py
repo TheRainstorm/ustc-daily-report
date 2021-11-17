@@ -2,6 +2,7 @@ import json
 import requests
 from lxml import etree
 from urllib import parse
+import sys
 
 class DailyReportBot:
     URL_LOGIN = 'https://passport.ustc.edu.cn/login?service=https%3A%2F%2Fweixine.ustc.edu.cn%2F2020%2Fcaslogin'
@@ -83,7 +84,10 @@ class DailyReportBot:
         # print(self.report_dict)
 
 if __name__ == '__main__':
-    with open('config.json', encoding='utf-8') as fp:
+    config_file = 'config.json'
+    if len(sys.argv) == 2:
+        config_file = sys.argv[1]
+    with open(config_file, encoding='utf-8') as fp:
         config = json.load(fp)
     
     bot = DailyReportBot(config, write_log=True)
