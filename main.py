@@ -3,6 +3,7 @@ import requests
 from lxml import etree
 from urllib import parse
 import sys
+import os
 
 class DailyReportBot:
     URL_LOGIN = 'https://passport.ustc.edu.cn/login?service=https%3A%2F%2Fweixine.ustc.edu.cn%2F2020%2Fcaslogin'
@@ -84,7 +85,8 @@ class DailyReportBot:
         # print(self.report_dict)
 
 if __name__ == '__main__':
-    config_file = 'config.json'
+    # print(sys.path[0])
+    config_file = os.path.join(sys.path[0], 'config.json')
     if len(sys.argv) == 2:
         config_file = sys.argv[1]
     with open(config_file, encoding='utf-8') as fp:
