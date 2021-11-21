@@ -4,6 +4,7 @@ from lxml import etree
 from urllib import parse
 import sys
 import os
+import time
 
 class DailyReportBot:
     URL_LOGIN = 'https://passport.ustc.edu.cn/login?service=https%3A%2F%2Fweixine.ustc.edu.cn%2F2020%2Fcaslogin'
@@ -62,8 +63,8 @@ class DailyReportBot:
         msg = html.xpath('//*[@id="wrapper"]/div[2]/div[1]/p')[0].text
         print(msg)
         if self.write_log:
-            with open('report.log', 'w', encoding='utf-8') as f:
-                f.write(msg)
+            with open(os.path.join(sys.path[0], 'report.log'), 'w', encoding='utf-8') as f:
+                f.write(time.strftime("%Y-%m-%d %H:%M:%S")+" "+msg)
 
     def parse(self):
         self.login_dict = {
@@ -85,7 +86,6 @@ class DailyReportBot:
         # print(self.report_dict)
 
 if __name__ == '__main__':
-    # print(sys.path[0])
     config_file = os.path.join(sys.path[0], 'config.json')
     if len(sys.argv) == 2:
         config_file = sys.argv[1]
